@@ -1,2 +1,2 @@
 # answer.js
-A open source blooket cheat
+A bookmarklet-based blooket cheat that uses the offical blooket api to get question answers.
