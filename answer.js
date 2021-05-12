@@ -6,19 +6,19 @@ function httpGet(theUrl)
     return xmlHttp.responseText;
 } // yes, this is stolen from stackoverflow
 var id = prompt("What is the game pin?");
-var answers = JSON.parse(httpGet(`https://api.blooket.com/api/games?gameId=${id}`);)
+var answers = JSON.parse(httpGet(`https://api.blooket.com/api/games?gameId=${id}`));
 alert("Got answers, press the V key at any time to see the correct answer to the current question.");
   
-    function debugInfo(info){if(debug == true) alert("Debug: " + info)}
+    function debugInfo(info){if(debug == true) alert("Debug: " + info);}
     var debug = false;
     document.addEventListener("keyup", (e) => {
      if(e.key == "v"){
         var question = $("div[class^='syles__questionText__']")[0].innerHTML;
          debugInfo("question = " + question);
          var questionObject = answers.filter(q => q.question == question);
-         alert(JSON.stringify(questionObject.correctAnswers))
+         alert(JSON.stringify(questionObject.correctAnswers));
      }
     if(e.key == "p"){
-     debug ? alert("Debug Mode Disabled"); debug=false; : alert("Debug mode enabled"); debug = true; 
+      if(debug) {alert("Debug Mode Disabled"); debug=false;} else { alert("Debug mode enabled"); debug = true;} 
     }
-    })
+    });
