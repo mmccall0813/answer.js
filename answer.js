@@ -1,6 +1,3 @@
-( () =>{// Run the code in an isolated function so we dont define any global variables. (global variables could make the cheat detectable)
-    // ok first we need the questions and answers, we can do that by using blooket's api
-  
 function httpGet(theUrl)
 {
     var xmlHttp = new XMLHttpRequest();
@@ -25,5 +22,3 @@ alert("Got answers, press the V key at any time to see the correct answer to the
      debug ? alert("Debug Mode Disabled"); debug=false; : alert("Debug mode enabled"); debug = true; 
     }
     })
-}
-)()
