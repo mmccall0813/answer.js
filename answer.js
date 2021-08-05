@@ -13,7 +13,7 @@ alert("Got answers, press the V key at any time to see the correct answer to the
     var debug = false;
     document.addEventListener("keyup", (e) => {
      if(e.key == "v"){
-        var question = $("div[class^='syles__questionText__']")[0].innerHTML;
+        var question = document.queryselector("div[class^='syles__questionText__']")[0].innerHTML;
          debugInfo("question = " + question);
          var questionObject = answers.filter(q => q.question == question);
          alert(JSON.stringify(questionObject.correctAnswers));
