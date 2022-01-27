@@ -1,4 +1,3 @@
-( () => {
 var idinput = document.querySelector(".styles__idInput___3PMeH-camelCase");
 if(!idinput){
     return alert("Please only run this script on the start screen (where you input id)");
@@ -30,7 +29,9 @@ async function start(gameid){
         var gamejson = await gameinfo.json();
         var questions = gamejson.questions;
         questions.forEach( (q) => {
+            q.question=q.question.replace(/ +(?= )/g,'');
             console.log(q.question + ":" + q.correctAnswers)
+            q.correctAnswers[0] = q.correctAnswers[0].trim().replace(/ +(?= )/g,'');
             answers[q.question] = {
                 num:q.number,
                 text:q.question,
@@ -56,7 +57,10 @@ async function start(gameid){
             break;
         }
         if(questionText) questionText = questionText.innerText; else return;
+        console.log(questionText);
+        console.log(answers)
         var question = answers[questionText];
+        
         var answered = false;
         for(var i = 0; i < 4 && answered == false; i++){
             var button = document.querySelectorAll(".styles__answerContainer___qj_oZ-camelCase")[i];
@@ -67,4 +71,3 @@ async function start(gameid){
         }
     }, 250)
 }
-})()
