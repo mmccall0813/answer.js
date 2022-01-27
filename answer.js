@@ -1,3 +1,4 @@
+(() => {
 var idinput = document.querySelector(".styles__idInput___3PMeH-camelCase");
 if(!idinput){
     return alert("Please only run this script on the start screen (where you input id)");
@@ -71,3 +72,4 @@ async function start(gameid){
         }
     }, 250)
 }
+})()
