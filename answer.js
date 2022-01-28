@@ -58,8 +58,6 @@ async function start(gameid){
             break;
         }
         if(questionText) questionText = questionText.innerText; else return;
-        console.log(questionText);
-        console.log(answers)
         var question = answers[questionText];
         
         var answered = false;
