@@ -33,6 +33,7 @@ async function start(gameid){
             q.question=q.question.replace(/ +(?= )/g,'');
             console.log(q.question + ":" + q.correctAnswers)
             q.correctAnswers[0] = q.correctAnswers[0].trim().replace(/ +(?= )/g,'');
+            // note to self: rewrite this to support image matching
             answers[q.question] = {
                 num:q.number,
                 text:q.question,
@@ -57,8 +58,8 @@ async function start(gameid){
             if(firstPlayerToSteal) firstPlayerToSteal.click(); // might swap with lower player if its a swap
             break;
         }
-        if(questionText) questionText = questionText.innerText; else return;
-        var question = answers[questionText];
+        if(questionText.innerText) return;
+        var question = answers[questionText.innerText];
         
         var answered = false;
         for(var i = 0; i < 4 && answered == false; i++){
