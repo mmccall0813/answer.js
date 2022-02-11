@@ -16,7 +16,7 @@ joinButton.onclick = function(...args){
 async function start(gameid){
     var answers = {};
     var mode = "";
-    fetch("https://api.blooket.com/api/firebase/join", {
+    fetch("https://fb.blooket.com/c/firebase/join", {
     "body": `{\"id\":\"${gameid}\",\"name\":\"answerdotjs\"}`,
     "method": "PUT",
     "mode": "cors"
