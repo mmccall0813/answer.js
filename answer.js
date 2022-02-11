@@ -9,7 +9,6 @@ form.onsubmit = function(...args){
     start(idinput.value);
 }
 var joinButton = document.querySelector(".styles__joinButton___1wofq-camelCase");
-joinButton.originalOnClick = joinButton.onclick;
 joinButton.onclick = function(...args){
     form.onsubmit()
 }
@@ -58,7 +57,7 @@ async function start(gameid){
             if(firstPlayerToSteal) firstPlayerToSteal.click(); // might swap with lower player if its a swap
             break;
         }
-        if(questionText.innerText) return;
+        if(!questionText.innerText) return;
         var question = answers[questionText.innerText];
         
         var answered = false;
