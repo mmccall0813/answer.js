@@ -57,7 +57,7 @@ async function start(gameid){
             if(firstPlayerToSteal) firstPlayerToSteal.click(); // might swap with lower player if its a swap
             break;
         }
-        if(!questionText && !questionText.innerText) return;
+        if(questionText && questionText.innerText); else return; // why does this work
         var question = answers[questionText.innerText];
         
         var answered = false;
