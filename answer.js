@@ -34,6 +34,7 @@ async function start(gameid){
             console.log(q.question + ":" + q.correctAnswers)
             q.correctAnswers[0] = q.correctAnswers[0].trim().replace(/ +(?= )/g,'');
             // note to self: rewrite this to support image matching
+            // questions can have the same text, but different images
             answers[q.question] = {
                 num:q.number,
                 text:q.question,
@@ -47,15 +48,23 @@ async function start(gameid){
         var feedback = document.querySelector(".styles__feedbackContainer___1fuws-camelCase > div");
         if(feedback) feedback.click();
         switch(mode){ // mode-specific stuff
-            case "Gold": // auto-click a chest
+            case "Gold": // automatic play for gold quest
             var chests = document.querySelectorAll("div[class^=\"styles__choice\"");
             if(chests.length == 3) chests[Math.floor(Math.random()*3)].click();
+            // click a random chest
+
             var header = document.querySelector(".styles__headerInside___x--63-camelCase");
             if(header && header.innerText) document.querySelector(".arts__regularBody___1TM6E-camelCase").click()
+            // after you select a chest, go to the next screen
+            
             var noPlayersNext = document.querySelector(".styles__noPlayers___1Wz34-camelCase > div");
             if(noPlayersNext) noPlayersNext.click();
+            // if theres no players to swap with or steal from, hit the button to go to the next screen
+
             var firstPlayerToSteal = document.querySelector(".styles__playerContainer___3zoyU-camelCase");
             if(firstPlayerToSteal) firstPlayerToSteal.click(); // might swap with lower player if its a swap
+            // steal from players
+            
             break;
         }
         if(questionText && questionText.innerText); else return; // why does this work
