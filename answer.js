@@ -43,6 +43,7 @@ async function start(gameid){
             }
         })
     })
+    var cryptoPasswords = {};
     setInterval( () => {
         var questionText = document.querySelector(".styles__questionText___2MlSZ-camelCase")
         var feedback = document.querySelector(".styles__feedbackContainer___1fuws-camelCase > div");
@@ -68,7 +69,8 @@ async function start(gameid){
             break;
             case "Hack": // crypto hack auto-play
             var passwords = document.querySelectorAll(".styles__button___2OOoS-camelCase");
-            if(passwords.length) passwords[Math.floor(Math.random()*passwords.length)].click();
+            var introHeader = document.querySelector(".styles__introHeader___Dzfym-camelCase")
+            if(passwords.length && introHeader.innerText && !introHeader.innerText.includes("HACKING")) passwords[Math.floor(Math.random()*passwords.length)].click();
             // choose a randomized password
 
             var feedbackText = document.querySelector(".styles__nextText___2QnHA-camelCase");
@@ -83,7 +85,39 @@ async function start(gameid){
             if(output) output.click();
             // auto continue after choosing output
 
-            // TODO: password memorization for hacking
+            // password memorization for hacking
+            // its a little messy but does the job how its supposed to
+            if(passwords.length && introHeader && introHeader.innerText.includes("HACKING")){
+                var name = document.querySelector(".styles__introHeader___Dzfym-camelCase > span").innerText;
+                var chosen;
+                var possibleChosen = document.querySelectorAll(".styles__buttonDeactivated___12OK6-camelCase")
+                possibleChosen.forEach( (e) => {
+                    if(!e.classList.contains("styles__buttonNotChosen___ppkxb-camelCase")) chosen = e.innerText;
+                })
+                if(!cryptoPasswords[name]){
+                    passwords[Math.floor(Math.random()*passwords.length)].click();
+                } else {
+                    var correct;
+                    passwords.forEach( (e) => {
+                        if(e.innerText == cryptoPasswords[name]){
+                            correct = e;
+                        }
+                    })
+                    if(correct) correct.click()
+                }
+                
+                var status = "";
+                var result = document.querySelectorAll(".styles__introHeader___Dzfym-camelCase").forEach( (e) => {
+                    if(e.innerText == "CORRECT"){
+                        status = "CORRECT"
+                    } else if(e.innerText == "INCORRECT"){
+                        status = "INCORRECT"
+                    }
+                });
+                if(status == "CORRECT"){
+                    cryptoPasswords[name] = chosen;
+                }
+            }
             break;
         }
         if(questionText && questionText.innerText); else return; // why does this work
