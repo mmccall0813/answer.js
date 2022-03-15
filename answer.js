@@ -21,8 +21,9 @@ async function start(gameid){
     "mode": "cors"
     }).then( async (res) => {
         var json = await res.json();
-        console.log("Game id is " + json.host.set);
-        console.log("Game mode is " + json.host.s.t);
+        console.log(`Set id is ${json.host.set}`);
+        console.log(`Game pin is ${gameid}`)
+        console.log(`Game mode is ${json.host.s.t}`);
         mode = json.host.s.t;
         console.log("Getting game answers...");
         var gameinfo = await fetch(`https://api.blooket.com/api/games?gameId=${json.host.set}`);
