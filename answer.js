@@ -66,6 +66,25 @@ async function start(gameid){
             // steal from players
             
             break;
+            case "Hack": // crypto hack auto-play
+            var passwords = document.querySelectorAll(".styles__button___2OOoS-camelCase");
+            if(passwords.length) passwords[Math.floor(Math.random()*passwords.length)].click();
+            // choose a randomized password
+
+            var feedbackText = document.querySelector(".styles__nextText___2QnHA-camelCase");
+            if(feedbackText) feedbackText.parentElement.click();   
+            // automatically click next after getting question correct
+            
+            var outputs = document.querySelectorAll("div[class^=\"styles__choice__\"");
+            if(outputs.length == 3) outputs[Math.floor(Math.random()*outputs.length)].click();
+            // auto choose a random output
+
+            var output = document.querySelector(".styles__choiceContainer___3HD01-camelCase");
+            if(output) output.click();
+            // auto continue after choosing output
+
+            // TODO: password memorization for hacking
+            break;
         }
         if(questionText && questionText.innerText); else return; // why does this work
         var question = answers[questionText.innerText];
