@@ -6,6 +6,7 @@ Execute on the PIN screen, then enter pin as you normally would. It will auto-pl
 Currently functional on:
 
 - Gold Quest
+- Crypto Hack
 
 Auto-answer *should* work on all modes, but I've only tested on cryptohack mode.
 
