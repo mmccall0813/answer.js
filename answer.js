@@ -1,6 +1,6 @@
 /*
 notes for wildcards with query selector
-thanks to: 
+thanks to: https://stackoverflow.com/a/8714421
 
 [class^='someClass'] will match all classes starting with someClass.
 
@@ -55,10 +55,8 @@ async function start(gameid){
     })
     var cryptoPasswords = {};
     var possiblePasswords = {};
-    setInterval( () => {
-        var questionText = document.querySelector("[class^='styles__questionText___']")
-        var feedback = document.querySelector("[class^='styles__feedbackContainer___'] > div");
-        if(feedback) feedback.click();
+    var loop = setInterval( () => {
+        console.log("looping")
         switch(mode){ // mode-specific stuff
             case "Gold": // automatic play for gold quest
             var chests = document.querySelectorAll("[class^=\"styles__choice\"");
@@ -144,7 +142,28 @@ async function start(gameid){
                 }
             }
             break;
+            case "Royale": // clear current loop and start a new, shorter one, that only answers questions;
+                clearInterval(loop);
+                setInterval( () => {
+                    var questionText = document.querySelector("[class^='styles__questionText___']")
+                    if(questionText && questionText.innerText); else return; // why does this work
+                    var question = answers[questionText.innerText];
+        
+                    var answered = false;
+                    for(var i = 0; i < 4 && answered == false; i++){
+                        var button = document.querySelectorAll("[class^='styles__answerContainer___']")[i];
+                        if(button.innerText && question.correctAnswers.includes(button.innerText)){
+                        button.click();
+                        answered = true;
+                    }
+                    console.log("new loop who dis")
+                    }
+                }, 50)
+            break;
         }
+        var questionText = document.querySelector("[class^='styles__questionText___']")
+        var feedback = document.querySelector("[class^='styles__feedbackContainer___'] > div");
+        if(feedback) feedback.click();
         if(questionText && questionText.innerText); else return; // why does this work
         var question = answers[questionText.innerText];
         
