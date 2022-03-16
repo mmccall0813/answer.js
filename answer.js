@@ -1,14 +1,24 @@
+/*
+notes for wildcards with query selector
+thanks to: 
+
+[class^='someClass'] will match all classes starting with someClass.
+
+[class$='someClass'] will match all classes ending with someClass.
+
+[class*='someClass'] will match all classes containing someClass.
+*/
 (() => {
-var idinput = document.querySelector(".styles__idInput___1zWUq-camelCase");
+var idinput = document.querySelector("[class^='styles__idInput___']");
 if(!idinput){
     return alert("Please only run this script on the start screen (where you input id)");
 }
-var form = document.querySelector(".styles__mainBox___16RUM-camelCase");
+var form = document.querySelector("[class^='styles__mainBox___']");
 form.onsubmit = function(...args){
     alert(`Starting bot with game code ${idinput.value}. If you incorrectly entered the game code, please refresh the page.`);
     start(idinput.value);
 }
-var joinButton = document.querySelector(".styles__joinButton___xSaJN-camelCase");
+var joinButton = document.querySelector("[class^='styles__joinButton___']");
 joinButton.onclick = function(...args){
     form.onsubmit()
 }
@@ -44,58 +54,67 @@ async function start(gameid){
         })
     })
     var cryptoPasswords = {};
+    var possiblePasswords = {};
     setInterval( () => {
-        var questionText = document.querySelector(".styles__questionText___2MlSZ-camelCase")
-        var feedback = document.querySelector(".styles__feedbackContainer___1fuws-camelCase > div");
+        var questionText = document.querySelector("[class^='styles__questionText___']")
+        var feedback = document.querySelector("[class^='styles__feedbackContainer___'] > div");
         if(feedback) feedback.click();
         switch(mode){ // mode-specific stuff
             case "Gold": // automatic play for gold quest
-            var chests = document.querySelectorAll("div[class^=\"styles__choice\"");
+            var chests = document.querySelectorAll("[class^=\"styles__choice\"");
             if(chests.length == 3) chests[Math.floor(Math.random()*3)].click();
             // click a random chest
 
-            var header = document.querySelector(".styles__headerInside___x--63-camelCase");
-            if(header && header.innerText) document.querySelector(".arts__regularBody___1TM6E-camelCase").click()
+            var header = document.querySelector("[class^='styles__headerInside___']");
+            if(header && header.innerText) document.querySelector("[class^='arts__regularBody___']").click()
             // after you select a chest, go to the next screen
             
-            var noPlayersNext = document.querySelector(".styles__noPlayers___1Wz34-camelCase > div");
+            var noPlayersNext = document.querySelector("[class^='styles__noPlayers___'] > div");
             if(noPlayersNext) noPlayersNext.click();
             // if theres no players to swap with or steal from, hit the button to go to the next screen
 
-            var firstPlayerToSteal = document.querySelector(".styles__playerContainer___3zoyU-camelCase");
+            var firstPlayerToSteal = document.querySelector("[class^='styles__playerContainer___']");
             if(firstPlayerToSteal) firstPlayerToSteal.click(); // might swap with lower player if its a swap
             // steal from players
             
             break;
             case "Hack": // crypto hack auto-play
-            var passwords = document.querySelectorAll(".styles__button___2OOoS-camelCase");
-            var introHeader = document.querySelector(".styles__introHeader___Dzfym-camelCase")
+            var passwords = document.querySelectorAll("[class^='styles__button___']");
+            var introHeader = document.querySelector("[class^='styles__introHeader___']")
             if(passwords.length && introHeader.innerText && !introHeader.innerText.includes("HACKING")) passwords[Math.floor(Math.random()*passwords.length)].click();
             // choose a randomized password
 
-            var feedbackText = document.querySelector(".styles__nextText___2QnHA-camelCase");
+            var feedbackText = document.querySelector("styles__nextText___");
             if(feedbackText) feedbackText.parentElement.click();   
             // automatically click next after getting question correct
             
-            var outputs = document.querySelectorAll("div[class^=\"styles__choice__\"");
+            var outputs = document.querySelectorAll("[class^=\"styles__choice__\"]");
             if(outputs.length == 3) outputs[Math.floor(Math.random()*outputs.length)].click();
             // auto choose a random output
 
-            var output = document.querySelector(".styles__choiceContainer___3HD01-camelCase");
+            var output = document.querySelector("styles__choiceContainer___");
             if(output) output.click();
             // auto continue after choosing output
 
             // password memorization for hacking
             // its a little messy but does the job how its supposed to
             if(passwords.length && introHeader && introHeader.innerText.includes("HACKING")){
-                var name = document.querySelector(".styles__introHeader___Dzfym-camelCase > span").innerText;
+                var name = document.querySelector("[class^='styles__introHeader___'] > span").innerText;
                 var chosen;
-                var possibleChosen = document.querySelectorAll(".styles__buttonDeactivated___12OK6-camelCase")
+                var possibleChosen = document.querySelectorAll("[class^='styles__buttonDeactivated___']")
                 possibleChosen.forEach( (e) => {
-                    if(!e.classList.contains("styles__buttonNotChosen___ppkxb-camelCase")) chosen = e.innerText;
+                    if(!e.classList.contains("[class^='styles__buttonNotChosen___']")) chosen = e.innerText;
                 })
-                if(!cryptoPasswords[name]){
+                if(!cryptoPasswords[name] && !possiblePasswords[name]){
                     passwords[Math.floor(Math.random()*passwords.length)].click();
+                } else if(!cryptoPasswords[name] && possiblePasswords[name]){
+                    possiblePasswords[name].forEach( (pass) => {
+                        passwords.forEach( (button) => {
+                            if(button.innerText == pass){
+                                button.click()
+                            }
+                        })
+                    })
                 } else {
                     var correct;
                     passwords.forEach( (e) => {
@@ -107,7 +126,7 @@ async function start(gameid){
                 }
                 
                 var status = "";
-                var result = document.querySelectorAll(".styles__introHeader___Dzfym-camelCase").forEach( (e) => {
+                var result = document.querySelectorAll("[class^='styles__introHeader___']").forEach( (e) => {
                     if(e.innerText == "CORRECT"){
                         status = "CORRECT"
                     } else if(e.innerText == "INCORRECT"){
@@ -116,6 +135,12 @@ async function start(gameid){
                 });
                 if(status == "CORRECT"){
                     cryptoPasswords[name] = chosen;
+                } else if(status == "INCORRECT" && !possibleChosen[name]){
+                    var possible = [];
+                    passwords.forEach( (pass) => {
+                        possible.push(pass.innerText);
+                    })
+                    possiblePasswords[name] = possible;
                 }
             }
             break;
@@ -125,7 +150,7 @@ async function start(gameid){
         
         var answered = false;
         for(var i = 0; i < 4 && answered == false; i++){
-            var button = document.querySelectorAll(".styles__answerContainer___3WS-k-camelCase")[i];
+            var button = document.querySelectorAll("[class^='styles__answerContainer___']")[i];
             if(button.innerText && question.correctAnswers.includes(button.innerText)){
                 button.click();
                 answered = true;
