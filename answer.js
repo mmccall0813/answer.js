@@ -56,7 +56,6 @@ async function start(gameid){
     var cryptoPasswords = {};
     var possiblePasswords = {};
     var loop = setInterval( () => {
-        console.log("looping")
         switch(mode){ // mode-specific stuff
             case "Gold": // automatic play for gold quest
             var chests = document.querySelectorAll("[class^=\"styles__choice\"");
@@ -156,7 +155,6 @@ async function start(gameid){
                         button.click();
                         answered = true;
                     }
-                    console.log("new loop who dis")
                     }
                 }, 50)
             break;
