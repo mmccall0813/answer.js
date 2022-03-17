@@ -81,7 +81,7 @@ async function start(gameid){
             if(passwords.length && introHeader.innerText && !introHeader.innerText.includes("HACKING")) passwords[Math.floor(Math.random()*passwords.length)].click();
             // choose a randomized password
 
-            var feedbackText = document.querySelector("styles__nextText___");
+            var feedbackText = document.querySelector("[class^='styles__nextText___']");
             if(feedbackText) feedbackText.parentElement.click();   
             // automatically click next after getting question correct
             
@@ -89,7 +89,7 @@ async function start(gameid){
             if(outputs.length == 3) outputs[Math.floor(Math.random()*outputs.length)].click();
             // auto choose a random output
 
-            var output = document.querySelector("styles__choiceContainer___");
+            var output = document.querySelector("[class^='styles__choiceContainer___']");
             if(output) output.click();
             // auto continue after choosing output
 
