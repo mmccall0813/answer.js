@@ -7,6 +7,7 @@ Currently functional on:
 
 - Gold Quest
 - Crypto Hack
+- Battle Royale
 
 Auto-answer *should* work on all modes, but I've only tested on cryptohack mode.
 
