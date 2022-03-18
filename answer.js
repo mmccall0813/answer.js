@@ -11,11 +11,18 @@ thanks to: https://stackoverflow.com/a/8714421
 (() => {
 var idinput = document.querySelector("[class^='styles__idInput___']");
 if(!idinput){
-    return alert("Please only run this script on the start screen (where you input id)");
+    var frame = document.body.appendChild(document.createElement("iframe"))
+    var contentWindow = frame.contentWindow
+    contentWindow.alert("Please only run this script on the start screen (where you input id)");
+    document.body.removeChild(frame);
+    return;
 }
 var form = document.querySelector("[class^='styles__mainBox___']");
 form.onsubmit = function(...args){
-    alert(`Starting bot with game code ${idinput.value}. If you incorrectly entered the game code, please refresh the page.`);
+    var frame = document.body.appendChild(document.createElement("iframe"))
+    var contentWindow = frame.contentWindow
+    contentWindow.alert(`Starting bot with game code ${idinput.value}. If you incorrectly entered the game code, please refresh the page.`);
+    document.body.removeChild(frame);
     start(idinput.value);
 }
 var joinButton = document.querySelector("[class^='styles__joinButton___']");
