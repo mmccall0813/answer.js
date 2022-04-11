@@ -47,7 +47,7 @@ async function start(gameid){
         var gamejson = await gameinfo.json();
         var questions = gamejson.questions;
         questions.forEach( (q) => {
-            q.question=q.question.replace(/ +(?= )/g,'');
+            q.question=q.question.replace(/ +(?= )/g,'').trim();
             console.log(q.question + ":" + q.correctAnswers)
             q.correctAnswers[0] = q.correctAnswers[0].trim().replace(/ +(?= )/g,'');
             // note to self: rewrite this to support image matching
