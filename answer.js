@@ -165,6 +165,12 @@ async function start(gameid){
                     }
                 }, 50)
             break;
+            case "Fish": // catch them fishies
+                var pagebutton = document.querySelector("[class^='styles__pageButton___']");
+                if(pagebutton) pagebutton.click();
+                var fishModalButton = document.querySelector("[class^='arts__modal___']");
+                if(fishModalButton) fishModalButton.click();
+            break;
         }
         var questionText = document.querySelector("[class^='styles__questionText___']")
         var feedback = document.querySelector("[class^='styles__feedbackContainer___'] > div");

@@ -7,13 +7,14 @@ First get the bookmarklet (bookmark script) from [here](https://mmccall0813.gith
 
 Execute (click on bookmark) on the PIN screen, then enter pin as you normally would. It will auto-play the game for you, and get all questions correct.
 
-Currently functional on:
+Currently supported on:
 
 - Gold Quest
 - Crypto Hack
+- Fishing Frenzy
 - Battle Royale (beware, very blatant)
 - Classic (beware, very blatant)
 
-Auto-answer *should* work on all modes, make an issue if theres a mode that auto-answer doesn't work on.
+Running the cheat on unsupported modes will still auto-answer questions, but will not auto-play the game for you.
 
 Bookmarklet:
