@@ -152,7 +152,7 @@ async function start(gameid){
                 clearInterval(loop);
                 setInterval( () => {
                     var questionText = document.querySelector("[class^='styles__questionText___']")
-                    if(questionText && questionText.innerText); else return; // why does this work
+                    if(questionText && questionText.innerText); else return;
                     var question = answers[questionText.innerText];
         
                     var answered = false;
@@ -169,7 +169,7 @@ async function start(gameid){
         var questionText = document.querySelector("[class^='styles__questionText___']")
         var feedback = document.querySelector("[class^='styles__feedbackContainer___'] > div");
         if(feedback) feedback.click();
-        if(questionText && questionText.innerText); else return; // why does this work
+        if(questionText && questionText.innerText); else return;
         var question = answers[questionText.innerText];
         
         var answered = false;
