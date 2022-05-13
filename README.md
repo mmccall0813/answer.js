@@ -7,7 +7,7 @@ First get the bookmarklet (bookmark script) from [here](https://mmccall0813.gith
 
 Execute (click on bookmark) on the PIN screen, then enter pin as you normally would. It will auto-play the game for you, and get all questions correct.
 
-# What modes does it work on?
+## What modes does it work on?
 
 Auto-play supported on:
 
