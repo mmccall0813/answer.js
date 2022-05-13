@@ -1,3 +1,9 @@
+// answer.js
+// v1.0.0
+// Made by mmccall0813 on github
+// https://www.github.com/mmccall0813/answer.js
+// dont steal pls!
+
 /*
 notes for wildcards with query selector
 thanks to: https://stackoverflow.com/a/8714421
