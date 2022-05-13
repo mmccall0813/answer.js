@@ -1,4 +1,7 @@
 # answer.js
+
+v1.1.0 - The images update
+
 A bookmarklet-based blooket auto-player that uses the offical blooket api to get question answers.
 
 ## How to use?

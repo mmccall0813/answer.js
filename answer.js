@@ -1,5 +1,5 @@
 // answer.js
-// v1.0.0
+// v1.1.0
 // Made by mmccall0813 on github
 // https://www.github.com/mmccall0813/answer.js
 // dont steal pls!
@@ -36,7 +36,7 @@ joinButton.onclick = function(...args){
     form.onsubmit()
 }
 async function start(gameid){
-    var answers = {};
+    var answers = [];
     var mode = "";
     fetch("https://fb.blooket.com/c/firebase/join", {
     "body": `{\"id\":\"${gameid}\",\"name\":\"answerdotjs\"}`,
@@ -44,9 +44,9 @@ async function start(gameid){
     "mode": "cors"
     }).then( async (res) => {
         var json = await res.json();
-        console.log(`Set id is ${json.host.set}`);
-        console.log(`Game pin is ${gameid}`)
-        console.log(`Game mode is ${json.host.s.t}`);
+        console.info(`Set id is ${json.host.set}`);
+        console.info(`Game pin is ${gameid}`);
+        console.info(`Game mode is ${json.host.s.t}`);
         mode = json.host.s.t;
         console.log("Getting game answers...");
         var gameinfo = await fetch(`https://api.blooket.com/api/games?gameId=${json.host.set}`);
@@ -58,12 +58,16 @@ async function start(gameid){
             q.correctAnswers[0] = q.correctAnswers[0].trim().replace(/ +(?= )/g,'');
             // note to self: rewrite this to support image matching
             // questions can have the same text, but different images
-            answers[q.question] = {
+            var hasImage = false;
+            if(typeof q.image == "object") hasImage = true;
+            answers.push({
                 num:q.number,
                 text:q.question,
                 possibleAnswers:q.answers,
-                correctAnswers:q.correctAnswers
-            }
+                correctAnswers:q.correctAnswers,
+                hasImage: hasImage,
+                image: q.image
+            });
         })
     })
     var cryptoPasswords = {};
@@ -78,7 +82,7 @@ async function start(gameid){
             var header = document.querySelector("[class^='styles__headerInside___']");
             if(header && header.innerText) document.querySelector("[class^='arts__regularBody___']").click()
             // after you select a chest, go to the next screen
-            
+
             var noPlayersNext = document.querySelector("[class^='styles__noPlayers___'] > div");
             if(noPlayersNext) noPlayersNext.click();
             // if theres no players to swap with or steal from, hit the button to go to the next screen
@@ -86,7 +90,7 @@ async function start(gameid){
             var firstPlayerToSteal = document.querySelector("[class^='styles__playerContainer___']");
             if(firstPlayerToSteal) firstPlayerToSteal.click(); // might swap with lower player if its a swap
             // steal from players
-            
+
             break;
             case "Hack": // crypto hack auto-play
             var passwords = document.querySelectorAll("[class^='styles__button___']");
@@ -95,9 +99,9 @@ async function start(gameid){
             // choose a randomized password
 
             var feedbackText = document.querySelector("[class^='styles__nextText___']");
-            if(feedbackText) feedbackText.parentElement.click();   
+            if(feedbackText) feedbackText.parentElement.click();
             // automatically click next after getting question correct
-            
+
             var outputs = document.querySelectorAll("[class^=\"styles__choice__\"]");
             if(outputs.length == 3) outputs[Math.floor(Math.random()*outputs.length)].click();
             // auto choose a random output
@@ -134,7 +138,7 @@ async function start(gameid){
                     })
                     if(correct) correct.click()
                 }
-                
+
                 var status = "";
                 var result = document.querySelectorAll("[class^='styles__introHeader___']").forEach( (e) => {
                     if(e.innerText == "CORRECT"){
@@ -160,7 +164,7 @@ async function start(gameid){
                     var questionText = document.querySelector("[class^='styles__questionText___']")
                     if(questionText && questionText.innerText); else return;
                     var question = answers[questionText.innerText];
-        
+
                     var answered = false;
                     for(var i = 0; i < 4 && answered == false; i++){
                         var button = document.querySelectorAll("[class^='styles__answerContainer___']")[i];
@@ -180,10 +184,20 @@ async function start(gameid){
         }
         var questionText = document.querySelector("[class^='styles__questionText___']")
         var feedback = document.querySelector("[class^='styles__feedbackContainer___'] > div");
+        var img = document.querySelector("[class^='styles__image___']");
+        var hasImage = img !== null;
+        var imgID = hasImage ? img.src.split("/")[img.src.split("/").length-1].split(".")[0] : undefined;
         if(feedback) feedback.click();
         if(questionText && questionText.innerText); else return;
-        var question = answers[questionText.innerText];
-        
+
+        var question = answers.filter( (ques, index) => {       
+            if(hasImage){
+                return ques.hasImage == true && ques.image.id == imgID && ques.text == questionText.innerText;
+            } else {
+                return ques.text == questionText.innerText
+            }
+        })[0];
+
         var answered = false;
         for(var i = 0; i < 4 && answered == false; i++){
             var button = document.querySelectorAll("[class^='styles__answerContainer___']")[i];
