@@ -6,3 +6,5 @@
 - ~~Find out the most efficent way to crack crypto hack passwords.~~ Complete
 - ~~Automatically lower the loop time for battle royale.~~ Complete
 - ~~Add wildcard matching to all class names to prevent script from breaking after a UI update.~~ Complete
+- Add optional RNG Manipulation to get predictable and consitent chest results.
+- Make a RNG Manipulation config tool (Web Page)
