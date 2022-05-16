@@ -6,7 +6,10 @@ A bookmarklet-based blooket auto-player that uses the offical blooket api to get
 
 ## How to use?
 
-First get the bookmarklet (bookmark script) from [here](https://mmccall0813.github.io/answer.js/loader.html) by dragging the link on the page to your bookmarks bar. 
+First get the bookmarklet (bookmark script) from [here](https://mmccall0813.github.io/answer.js/loader.html) by dragging the link on the page to your bookmarks bar.
+
+    - answer.js - auto-player
+    - legit.js - press "`" (key to the left of 1) and the answer turns green
 
 Execute (click on bookmark) on the PIN screen, then enter pin as you normally would. It will auto-play the game for you, and get all questions correct.
 
