@@ -73,12 +73,10 @@ thanks to: https://stackoverflow.com/a/8714421
         })
         document.body.addEventListener("keydown", (e) => {
             if(e.key !== "`") return;
-            var questionText = document.querySelector("[class^='styles__questionText___']")
-            var feedback = document.querySelector("[class^='styles__feedbackContainer___'] > div");
+            var questionText = document.querySelector("[class^='styles__questionText___']");
             var img = document.querySelector("[class^='styles__image___']");
             var hasImage = img !== null;
             var imgID = hasImage ? img.src.split("/")[img.src.split("/").length-1].split(".")[0] : undefined;
-            if(feedback) feedback.click();
             if(questionText && questionText.innerText); else return;
     
             var question = answers.filter( (ques, index) => {       
