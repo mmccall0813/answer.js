@@ -187,7 +187,8 @@ async function start(gameid){
         var img = document.querySelector("[class^='styles__image___']");
         var hasImage = img !== null;
         var imgID = hasImage ? img.src.split("/")[img.src.split("/").length-1].split(".")[0] : undefined;
-        if(feedback) feedback.click();
+        // blooket-rng-tool support
+        if(feedback && Math.random.toString().includes("[native code]")) feedback.click();
         if(questionText && questionText.innerText); else return;
 
         var question = answers.filter( (ques, index) => {       
