@@ -79,14 +79,15 @@ thanks to: https://stackoverflow.com/a/8714421
             var imgID = hasImage ? img.src.split("/")[img.src.split("/").length-1].split(".")[0] : undefined;
             if(questionText && questionText.innerText); else return;
     
-            var question = answers.filter( (ques, index) => {       
+            var questions = answers.filter( (ques, index) => {       
                 if(hasImage){
                     return ques.hasImage == true && ques.image.id == imgID && ques.text == questionText.innerText;
                 } else {
                     return ques.text == questionText.innerText
                 }
-            })[0];
-    
+            });
+            
+            questions.forEach( (question) => {
             var answered = false;
             for(var i = 0; i < 4 && answered == false; i++){
                 var button = document.querySelectorAll("[class^='styles__answerContainer___']")[i];
@@ -96,5 +97,6 @@ thanks to: https://stackoverflow.com/a/8714421
                     answered = true;
                 }
             }
+        })
         });
     }})()
