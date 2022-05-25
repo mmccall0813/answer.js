@@ -162,17 +162,32 @@ async function start(gameid){
                 clearInterval(loop);
                 setInterval( () => {
                     var questionText = document.querySelector("[class^='styles__questionText___']")
+                    var feedback = document.querySelector("[class^='styles__feedbackContainer___'] > div");
+                    var img = document.querySelector("[class^='styles__image___']");
+                    var hasImage = img !== null;
+                    var imgID = hasImage ? img.src.split("/")[img.src.split("/").length-1].split(".")[0] : undefined;
+                    // blooket-rng-tool support
+                    if(feedback && Math.random.toString().includes("[native code]")) feedback.click();
                     if(questionText && questionText.innerText); else return;
-                    var question = answers[questionText.innerText];
-
-                    var answered = false;
-                    for(var i = 0; i < 4 && answered == false; i++){
-                        var button = document.querySelectorAll("[class^='styles__answerContainer___']")[i];
-                        if(button.innerText && question.correctAnswers.includes(button.innerText)){
-                        button.click();
-                        answered = true;
-                    }
-                    }
+                            
+                    var questions = answers.filter( (ques, index) => {       
+                        if(hasImage){
+                            return ques.hasImage == true && ques.image.id == imgID && ques.text == questionText.innerText;
+                        } else {
+                            return ques.text == questionText.innerText
+                        }
+                    })
+                
+                    questions.forEach( (question) => {
+                        var answered = false;
+                        for(var i = 0; i < 4 && answered == false; i++){
+                            var button = document.querySelectorAll("[class^='styles__answerContainer___']")[i];
+                            if(button.innerText && question.correctAnswers.includes(button.innerText)){
+                                button.click();
+                                answered = true;
+                            }
+                        }
+                    })
                 }, 50)
             break;
             case "Fish": // catch them fishies
