@@ -87,10 +87,11 @@ thanks to: https://stackoverflow.com/a/8714421
                 }
             });
             
+            var buttons = document.querySelectorAll("[class^='styles__answerContainer___']");
             questions.forEach( (question) => {
             var answered = false;
-            for(var i = 0; i < 4 && answered == false; i++){
-                var button = document.querySelectorAll("[class^='styles__answerContainer___']")[i];
+            for(var i = 0; i < buttons.length && answered == false; i++){
+                var button = buttons[i];
                 if(button.innerText && question.correctAnswers.includes(button.innerText)){
                     // make the button text green
                     button.children[0].children[0].style.color = "green";
