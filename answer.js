@@ -1,5 +1,5 @@
 // answer.js
-// v1.1.0
+// v1.2.0
 // Made by mmccall0813 on github
 // https://www.github.com/mmccall0813/answer.js
 // dont steal pls!

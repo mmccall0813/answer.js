@@ -1,7 +1,5 @@
 # answer.js
 
-v1.1.0 - The images update
-
 A bookmarklet-based blooket auto-player that uses the offical blooket api to get question answers. I also made [blooket-rng-tool](https://www.github.com/mmccall0813/blooket-rng-tool) to help with RNG-based game modes, you should check it out.
 
 ## How to use?
